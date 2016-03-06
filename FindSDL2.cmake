@@ -1,0 +1,39 @@
+include(FindPackageHandleStandardArgs)
+
+if (CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set(MORE_LIBRARY_PATH_SUFFIXES lib/x64)
+else()
+    set(MORE_LIBRARY_PATH_SUFFIXES lib/x86)
+endif()
+
+find_path(SDL2_INCLUDE_DIR
+        NAMES SDL.h SDL2.h
+        HINTS ENV SDL2DIR
+        PATH_SUFFIXES SDL SDL2 include include/SDL include/SDL2)
+
+find_library(SDL2_LIBRARY
+        NAMES SDL2
+        HINTS ENV SDL2DIR
+        PATH_SUFFIXES lib ${MORE_LIBRARY_PATH_SUFFIXES})
+
+find_library(SDL2MAIN_LIBRARY
+        NAMES SDL2main
+        HINTS ENV SDL2DIR
+        PATH_SUFFIXES lib ${MORE_LIBRARY_PATH_SUFFIXES})
+
+if(SDL2_LIBRARY MATCHES \\.dll$)
+    set(SDL2_BINARIES ${SDL2_LIBRARY} CACHE STRING "")
+else()
+    set(SDL2_BINARIES "" CACHE STRING "")
+endif()
+
+if(SDL2MAIN_LIBRARY)
+    set(SDL2_LIBRARIES ${SDL2MAIN_LIBRARY} ${SDL2_LIBRARY} CACHE STRING "")
+else()
+    set(SDL2_LIBRARIES ${SDL2_LIBRARY} CACHE STRING "")
+endif()
+
+unset(MORE_LIBRARY_PATH_SUFFIXES)
+
+find_package_handle_standard_args(SDL2
+        REQUIRED_VARS SDL2_LIBRARIES SDL2_INCLUDE_DIR)
