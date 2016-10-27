@@ -4,7 +4,7 @@ find_path(ApachePortableRuntime_INCLUDE_DIR
         NAMES apr.h
         HINTS ENV APACHEPORTABLERUNTIMEDIR
         PATHS /usr/local/apache2
-        PATH_SUFFIXES include include/apache22 include/apache24)
+        PATH_SUFFIXES include include/apr-2 include/apr-1)
 
 find_library(ApachePortableRuntime_LIBRARY
         NAMES apr-2 apr-1
