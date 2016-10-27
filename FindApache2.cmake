@@ -14,5 +14,5 @@ find_library(Apache2_LIBRARY
 
 set(Apache2_LIBRARIES ${Apache2_LIBRARY} CACHE STRING "")
 
-find_package_handle_standard_args(Lua
+find_package_handle_standard_args(Apache2
         REQUIRED_VARS Apache2_LIBRARIES Apache2_INCLUDE_DIR)
